@@ -44,7 +44,7 @@ public class Player{
   }
   public void launchSpear(){
     if (Spears.size() < 5){
-      Spears.add(new Spear(new PVector(hitBox.Center.x,hitBox.Center.y),new PVector(mouseX,mouseY)));
+      Spears.add(new Spear(new PVector(hitBox.Center.x,hitBox.Center.y - 10),new PVector(mouseX,mouseY)));
     }
   }
   private void readInput(){

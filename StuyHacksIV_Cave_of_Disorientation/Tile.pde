@@ -14,13 +14,14 @@ private class Tile{
     try{
       getImage();
     }catch (Exception e){
-      //println(e);
+      println(e);
     }
     setShape();
   }
   public void render(){
     if (!isHidden){
       shape(shape);
+      image(texture,TR.x,TR.y);
     }
   }
   private void getImage(){
@@ -30,7 +31,7 @@ private class Tile{
     shape = createShape();
     shape.beginShape();
     if (texture != null){
-      shape.texture(texture);
+      texture(texture);
     }else{
     }
     shape.vertex(TR.x,TR.y);

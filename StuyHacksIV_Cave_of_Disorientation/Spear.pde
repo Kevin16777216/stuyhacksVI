@@ -7,7 +7,7 @@ private class Spear{
     image = images.get(3)[0];
     Box = new Hitbox(Pos,new PVector (30,30));
     this.target = target;
-    shift = new PVector((target.x-Pos.x)/ 60,(target.y-Pos.y)/60);
+    shift = new PVector((target.x-Pos.x),(target.y-Pos.y));
     render();
   }
   private void update(){

@@ -2,13 +2,13 @@ ArrayList<PImage[]> images = new ArrayList<PImage[]>();
 String[] Sections = {"Enemies","Tiles","UI","other"};
 Level starting;
 Level current;
-PVector playerDimensions = new PVector(constants.blockWidth,constants.blockWidth* 1.618);
+PVector playerDimensions = new PVector(constants.blockWidth*0.7,constants.blockWidth* 0.7);
 Player player;
 boolean U,D,L,R,S = false;
 void setup(){
   loadImageData();
   player = new Player(new PVector(width/2 - (playerDimensions.x /2),height/2 - (playerDimensions.y/2)),playerDimensions);
-  starting = new Level(-1);
+  starting = new Level(0);
   current = starting;
   size(1440,980);
 }
@@ -30,11 +30,11 @@ void loadImageData(){
     PImage[] folderImages = new PImage[files.length];
     for(int i =0;i <= files.length - 1; i++){
       String path = files[i].getAbsolutePath();
-      if (path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".png")){
-        println(path);
+      if (path.toLowerCase().endsWith(".jpg")|| path.toLowerCase().endsWith(".png")){
         folderImages[i] = loadImage(path);
       }
     }
+    println(folderImages.length);
     images.add(folderImages);
   }
 }
@@ -51,7 +51,6 @@ public void keyReleased(){
    if(keyCode == RIGHT){R = false;}
 }
 void mouseClicked(){
-  println("oy");
   player.launchSpear();
 }
 public interface constants{

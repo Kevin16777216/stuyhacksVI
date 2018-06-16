@@ -35,28 +35,33 @@ public class Level{
     }
   }
   public void loadLevel(){
-    String[] rawData = loadStrings("/Rooms/"+Integer.toString(ID)+".txt");
+    String[] rawData = loadStrings("/Rooms/readLevel/"+Integer.toString(ID)+".txt");
     int i = 0;
-    while (rawData[i] != "<Entraces>"){
+    while (!rawData[i].equals("<Entrances>")){
         Spawns.add(int(rawData[i]));
         i++;
     }
-    while (rawData[i] != "<Enemies>"){
+    i++;
+    while (!rawData[i].equals("<Enemies>")){
         String[] temp = rawData[i].split(",");
+        
         Entrances.add(new PVector(int(temp[0]),int(temp[1])));
         i++;
     }
-    while (rawData[i] != "<Tiles>"){
+    i++;
+    while (!rawData[i].equals("<Tiles>")){
         String[] temp = rawData[i].split(",");
         Enemies.add(createEnemy(temp));
         i++;
     }
-    while (rawData[i] != "<Teleporters>"){
+    i++;
+    while (!rawData[i].equals("<Teleporters>")){
         String[] temp = rawData[i].split(",");
         Tiles.add(new Tile(int(temp[0]),new PVector(int(temp[1]),int(temp[2])),(temp[3].equals("1"))));
         i++;
     }
-    while (rawData[i] != "<End>"){
+    i++;
+    while (!rawData[i].equals("<End>")){
         String[] temp = rawData[i].split(",");
         Tiles.add(new TileE(int(temp[0]),new PVector(int(temp[1]),int(temp[2])),(temp[3].equals("1")),int(temp[4])));
         i++;
