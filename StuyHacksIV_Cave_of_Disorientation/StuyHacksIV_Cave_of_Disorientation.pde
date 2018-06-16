@@ -4,7 +4,7 @@ Level starting;
 Level current;
 PVector playerDimensions = new PVector(constants.blockWidth,constants.blockWidth* 1.618);
 Player player;
-boolean U,D,L,R = false;
+boolean U,D,L,R,S = false;
 void setup(){
   loadImageData();
   player = new Player(new PVector(width/2 - (playerDimensions.x /2),height/2 - (playerDimensions.y/2)),playerDimensions);
@@ -30,7 +30,7 @@ void loadImageData(){
     PImage[] folderImages = new PImage[files.length];
     for(int i =0;i <= files.length - 1; i++){
       String path = files[i].getAbsolutePath();
-      if (path.toLowerCase().endsWith(".jpg")){
+      if (path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".png")){
         println(path);
         folderImages[i] = loadImage(path);
       }
@@ -49,6 +49,10 @@ public void keyReleased(){
    if(keyCode == DOWN){D = false;}
    if(keyCode == LEFT){L = false;}
    if(keyCode == RIGHT){R = false;}
+}
+void mouseClicked(){
+  println("oy");
+  player.launchSpear();
 }
 public interface constants{
   int blockWidth = 80;

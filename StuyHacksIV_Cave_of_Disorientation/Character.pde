@@ -5,6 +5,7 @@ public class Player{
   Bar healthBar;
   int maxHealth = 100;
   int Health = 100;
+  ArrayList<Spear> Spears = new ArrayList<Spear>();
   public Player(PVector TR,PVector Dimensions){
     hitBox = new Hitbox(TR,Dimensions);
     hitBox.isImportant = true;
@@ -21,12 +22,30 @@ public class Player{
     setupSprite();
     shape(body);
     updateHealth();
+    ArrayList<Spear> Removed = new ArrayList<Spear>();
+    for(Spear i: Spears){
+      i.update();
+      for (Tile j: current.Tiles){
+          if(i.Box.isHit(j.hitBox) && j.isSolid || i.Box.TR.x < 0 || i.Box.TR.x > width || i.Box.TR.y < 0 || i.Box.TR.y > height){
+            Removed.add(i);
+            break;
+          }
+      }
+    }
+    for (Spear i: Removed){
+      Spears.remove(i);
+    }
   }
   private void updateHealth(){
     healthBar.pos.x = hitBox.TR.x +10;
     healthBar.pos.y = hitBox.TR.y - 50;
     healthBar.updateValue(34);
     healthBar.render();
+  }
+  public void launchSpear(){
+    if (Spears.size() < 5){
+      Spears.add(new Spear(new PVector(hitBox.Center.x,hitBox.Center.y),new PVector(mouseX,mouseY)));
+    }
   }
   private void readInput(){
    if (U && !D){
