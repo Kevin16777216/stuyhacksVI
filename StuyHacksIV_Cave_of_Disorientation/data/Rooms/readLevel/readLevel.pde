@@ -16,16 +16,18 @@
                     };
 void setup(){
   size(420, 490);
-  level = 0;
+  level = 4;
   draw(level);
 }
 void draw(int Level){
     myImage = loadImage("/gamemaps/"+Level+".png");
+    String[] loading = loadStrings("loading.txt");
     output = createWriter(Level+".txt");
     output.println("<Entrances>");
     output.println("<Enemies>");
     output.println("<Tiles>");
     image(myImage, 0, 0);
+    int ChangeCount = 0;
     for(int y = 0; y < 11;y++){
       for(int x = 0; x < 17; x++){
         color m = get(x,y);
@@ -35,16 +37,15 @@ void draw(int Level){
               output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"1");
             }else{
               if (2 <= i && i <=11 ){
-                output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"0"+","+"A");
-              }else{
-                output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"0");
+                output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"0"+","+ChangeCount);
+                ChangeCount++;
               }
+              output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"0");
             }
           }
         }
       }
     }  
-    output.println("<Teleporters>");
     output.println("<End>");
   output.flush(); // Writes the remaining data to the file
   output.close(); // Finishes the file

@@ -55,15 +55,13 @@ public class Level{
         i++;
     }
     i++;
-    while (!rawData[i].equals("<Teleporters>")){
-        String[] temp = rawData[i].split(",");
-        Tiles.add(new Tile(int(temp[0]),new PVector(int(temp[1]),int(temp[2])),(temp[3].equals("1"))));
-        i++;
-    }
-    i++;
     while (!rawData[i].equals("<End>")){
         String[] temp = rawData[i].split(",");
-        Tiles.add(new TileE(int(temp[0]),new PVector(int(temp[1]),int(temp[2])),(temp[3].equals("1")),int(temp[4])));
+        if(temp.length > 4){
+          Teleporters.add(new TileE(int(temp[0]),new PVector(int(temp[1]),int(temp[2])),(temp[3].equals("1")),int(temp[4])));
+        }else{
+          Tiles.add(new Tile(int(temp[0]),new PVector(int(temp[1]),int(temp[2])),(temp[3].equals("1"))));
+        }
         i++;
     }
   }
