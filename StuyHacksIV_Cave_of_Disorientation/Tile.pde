@@ -20,8 +20,8 @@ private class Tile{
   }
   public void render(){
     if (!isHidden){
-      shape(shape);
       image(texture,TR.x,TR.y);
+      //shape(shape);
     }
   }
   private void getImage(){
@@ -37,7 +37,7 @@ private class Tile{
     shape = createShape();
     shape.beginShape();
     if (texture != null){
-      texture(texture);
+      shape.texture(texture);
     }else{
     }
     shape.vertex(TR.x,TR.y);

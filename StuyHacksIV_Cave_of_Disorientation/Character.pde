@@ -25,6 +25,7 @@ public class Player{
     image(texture,hitBox.TR.x,hitBox.TR.y,hitBox.Dimensions.x,hitBox.Dimensions.y);
     //shape(body);
     updateHealth();
+    Health += 4;
     ArrayList<Spear> Removed = new ArrayList<Spear>();
     for(Spear i: Spears){
       i.update();
@@ -39,6 +40,10 @@ public class Player{
       }
       for(Enemy p: toBeRemoved){
         p = null;
+        Health += 10;
+        if(Health > maxHealth){
+          Health = maxHealth;
+        }
         current.Enemies.remove(p);
       }
       for (Tile j: current.Tiles){
@@ -57,6 +62,10 @@ public class Player{
     healthBar.pos.x = hitBox.TR.x +5;
     healthBar.pos.y = hitBox.TR.y - 50;
     healthBar.render();
+    if (Health <= 0){
+      changeLevel(0,new PVector(width/2 - (playerDimensions.x /2),height/2 - (playerDimensions.y/2)-80));
+      Health = maxHealth;
+    }
   }
   public void getHit(int damage){
     Health -= damage;

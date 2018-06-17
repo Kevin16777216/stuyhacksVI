@@ -6,7 +6,9 @@ private class Enemy{
   PVector spawnPoint;
   PImage texture;
   PShape shape;
+  int speed = 100;
   int ID;
+  boolean isChasing;
   Tile target;
   int deadFrames = 0;
   public Enemy(int maxHealth,PVector startPos,int ID){
@@ -26,7 +28,9 @@ private class Enemy{
   public void update(){
     updateShape();
     render();
-    getPath();
+    if(isChasing){
+      getPath();
+    }
   }
   public void render(){
     if (deadFrames > 0){
@@ -38,6 +42,9 @@ private class Enemy{
     }
     }else{
         updateHealth();
+        if(isChasing && EBox.isHit(player.hitBox)){
+          player.getHit(10);
+        }
         image(texture,EBox.TR.x,EBox.TR.y);
     }
     //shape(shape);
@@ -80,7 +87,8 @@ private class Enemy{
   private void moveList(ArrayList<Tile> pathT){
    if(pathT.size() > 1){
      try{
-     PVector diff = PVector.sub(EBox.TR,pathT.get(pathT.size()-1).TR);
+     PVector diff = PVector.sub(EBox.TR,pathT.get(0).TR);
+     diff.div(8);
      diff.setMag(-0.1);
      EBox.TR.add(diff);
      EBox.Center.add(diff);

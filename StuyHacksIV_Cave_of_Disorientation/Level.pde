@@ -85,8 +85,26 @@ public class Level{
       while(p.isSolid || p instanceof TileE ){
         p = Tiles.get(int(random(Tiles.size())));
       }
-      
-      Enemies.add(new Shooter(100,new PVector(p.TR.x,p.TR.y),0,5,9,0));
+      int type = int(random(3));
+      Enemy m;
+      switch(type){
+        case 0:
+          m = new Shooter(100,new PVector(p.TR.x,p.TR.y),0,5,9,0);
+          m.isChasing = true;
+          break;
+        case 1:
+          m = new Shooter(100,new PVector(p.TR.x,p.TR.y),1,5,20,-1);
+          m.isChasing = false;
+          m.speed = 20;
+          break;
+        case 2:
+          m = new Enemy(100,new PVector(p.TR.x,p.TR.y),2);
+          m.isChasing = true;
+          break;
+        default:
+          m = new Enemy(100,new PVector(p.TR.x,p.TR.y),2);
+      }
+      Enemies.add(m);
       //p.spawnEnemy(int(random(5)));
       
     }

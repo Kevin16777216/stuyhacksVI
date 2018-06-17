@@ -16,10 +16,14 @@
                     };
 void setup(){
   size(420, 490);
-  level = 4;
-  draw(level);
+  for (int i =0; i< 11; i++){ 
+    level = i;
+    drw(level);
+  }
+  exit();
+  
 }
-void draw(int Level){
+void drw(int Level){
     myImage = loadImage("/gamemaps/"+Level+".png");
     String[] loading = loadStrings("loading.txt");
     output = createWriter(Level+".txt");
@@ -34,7 +38,8 @@ void draw(int Level){
         for(int i = 0; i < Colors.length; i++){
           if(Colors[i] == m){
             if (i == 0){
-              output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"1");
+              int[] rocks = {0};
+              output.println(rocks[int(random(rocks.length))]+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"1");
             }else{
               if (2 <= i && i <=11 ){
                 output.println(i+","+Integer.toString(40+x*80)+","+Integer.toString(50+y*80)+","+"0"+","+ChangeCount);
@@ -49,5 +54,5 @@ void draw(int Level){
     output.println("<End>");
   output.flush(); // Writes the remaining data to the file
   output.close(); // Finishes the file
-  exit();
+  
 }

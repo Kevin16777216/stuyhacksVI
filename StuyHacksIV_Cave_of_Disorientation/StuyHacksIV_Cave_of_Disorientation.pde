@@ -11,7 +11,7 @@ Hitbox right = new Hitbox(new PVector(1440 - Sbuffer,0),new PVector(Sbuffer,980)
 PVector playerDimensions = new PVector(constants.blockWidth*0.7,constants.blockWidth* 0.7);
 Player player;
 boolean U,D,L,R = false;
-int S = 0;
+int S = 1;
 void setup(){
   loadImageData();
   player = new Player(new PVector(width/2 - (playerDimensions.x /2),height/2 - (playerDimensions.y/2)-80),playerDimensions);
@@ -40,6 +40,7 @@ void loadImageData(){
     for(int i =0;i <= files.length - 1; i++){
       String path = files[i].getAbsolutePath();
       if (path.toLowerCase().endsWith(".jpg")|| path.toLowerCase().endsWith(".png")){
+        println(path);
         folderImages[i] = loadImage(path);
       }
     }
@@ -47,7 +48,7 @@ void loadImageData(){
   }
 }
 public void keyPressed(){
-   if(key == ' '){S = 0;}
+   if(key == ' '){player.launchSpear();}
    if(keyCode == UP|| key == 'w'){U = true;}
    if(keyCode == DOWN|| key == 's'){D = true;}
    if(keyCode == LEFT|| key == 'a'){L = true;}
@@ -59,9 +60,6 @@ public void keyReleased(){
    if(keyCode == DOWN || key == 's'){D = false;}
    if(keyCode == LEFT|| key == 'a'){L = false;}
    if(keyCode == RIGHT|| key == 'd'){R = false;}
-}
-void mouseClicked(){
-  player.launchSpear();
 }
 public interface constants{
   int blockWidth = 80;

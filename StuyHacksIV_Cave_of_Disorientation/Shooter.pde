@@ -11,7 +11,7 @@ private class Shooter extends Enemy{
    public void update(){
      super.update();
      if(health!=0){
-       if (int(random(100)) == 0){
+       if (int(random(speed)) == 0){
          int m = int(random(5)) +1;
          for(int i = 0; i < m; i++){
            shoot();
