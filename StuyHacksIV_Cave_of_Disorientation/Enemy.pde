@@ -49,6 +49,15 @@ private class Enemy{
     }
     //shape(shape);
   }
+  public void drawSpikey(){
+    float inRadius = constants.blockWidth/1.5;
+    for(int i = 0; i < 25; i++){
+      if (i % 2 == 0){
+         //line(Ebox.Center.x + cos((i/25)*360),Ebox.Center.x + cos((i/25)*360),Ebox.Center.x + cos((i/25)*360),Ebox.Center.x + cos((i/25)*360));
+      }else{
+      }
+    }
+  }
   private void updateHealth(){
     healthBar.pos.x = EBox.TR.x +10;
     healthBar.pos.y = EBox.TR.y - 50;

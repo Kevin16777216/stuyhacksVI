@@ -16,7 +16,7 @@
                     };
 void setup(){
   size(420, 490);
-  for (int i =0; i< 11; i++){ 
+  for (int i =0; i< 35; i++){ 
     level = i;
     drw(level);
   }
@@ -27,9 +27,6 @@ void drw(int Level){
     myImage = loadImage("/gamemaps/"+Level+".png");
     String[] loading = loadStrings("loading.txt");
     output = createWriter(Level+".txt");
-    output.println("<Entrances>");
-    output.println("<Enemies>");
-    output.println("<Tiles>");
     image(myImage, 0, 0);
     int ChangeCount = 0;
     for(int y = 0; y < 11;y++){

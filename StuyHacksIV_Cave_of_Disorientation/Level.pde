@@ -1,8 +1,7 @@
 public class Level{
   int ID;
   int frames = 0;
-  ArrayList<Integer> Spawns = new ArrayList<Integer>();
-  ArrayList<PVector> Entrances = new ArrayList<PVector>(); //list of coordinates corresponding to Spawns.
+  int framekill = 300;
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<Tile> Tiles = new ArrayList<Tile>();
   ArrayList<TileE> Teleporters = new ArrayList<TileE>();
@@ -21,6 +20,12 @@ public class Level{
     if (Touch == 2){
       Touch = 1;
     }
+    strokeWeight(30);
+    stroke(255);
+    line(30,25,width-30,25);
+    strokeWeight(30);
+    stroke(255*(frames/framekill),255*(1-(frames/framekill)),0);
+    line(30,25,width-30-((width-60)* frames/framekill),25);
     for(Tile i : Tiles){
       i.render();
     }
@@ -29,6 +34,11 @@ public class Level{
     }
     for(Enemy i:Enemies){
       i.update();
+    }
+    if (frames > framekill){
+      fill(255,0,0);
+      rect(0,0,width,height);
+      player.Health = 0;
     }
     if (Touch == 1){
       Touch = 0;
@@ -50,24 +60,6 @@ public class Level{
   public void loadLevel(){
     String[] rawData = loadStrings("/Rooms/readLevel/"+Integer.toString(ID)+".txt");
     int i = 0;
-    while (!rawData[i].equals("<Entrances>")){
-        Spawns.add(int(rawData[i]));
-        i++;
-    }
-    i++;
-    while (!rawData[i].equals("<Enemies>")){
-        String[] temp = rawData[i].split(",");
-        
-        Entrances.add(new PVector(int(temp[0]),int(temp[1])));
-        i++;
-    }
-    i++;
-    while (!rawData[i].equals("<Tiles>")){
-        String[] temp = rawData[i].split(",");
-        Enemies.add(createEnemy(temp));
-        i++;
-    }
-    i++;
     while (!rawData[i].equals("<End>")){
         String[] temp = rawData[i].split(",");
         if(temp.length > 4){
@@ -95,7 +87,7 @@ public class Level{
         case 1:
           m = new Shooter(100,new PVector(p.TR.x,p.TR.y),1,5,20,-1);
           m.isChasing = false;
-          m.speed = 20;
+          m.speed = 10;
           break;
         case 2:
           m = new Enemy(100,new PVector(p.TR.x,p.TR.y),2);

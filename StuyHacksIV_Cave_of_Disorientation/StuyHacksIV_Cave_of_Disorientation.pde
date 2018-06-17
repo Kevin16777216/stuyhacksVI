@@ -1,5 +1,5 @@
 ArrayList<PImage[]> images = new ArrayList<PImage[]>();
-String[] Sections = {"Enemies","Tiles","UI","other"};
+String[] Sections = {"Enemies","Tiles","UI","other","Drops"};
 Level starting;
 static Level current;
 float Tbuffer = (980 - (11 * constants.blockWidth)) / 2;
@@ -21,6 +21,8 @@ void setup(){
 }
 void draw(){
   clear();
+  textSize(32);
+  text(Integer.toString(current.ID),width/2,height - 20);
   current.update();
   player.update();
 }
@@ -28,6 +30,10 @@ void changeLevel(int i, PVector Spawn){
   player.hitBox.TR = Spawn;
   player.hitBox.Center.x = player.hitBox.TR.x + (player.hitBox.Dimensions.x /2);
   player.hitBox.Center.y = player.hitBox.TR.y + (player.hitBox.Dimensions.y /2);
+  if (player.deadFrames > 0){
+      fill(255,0,0);
+      rect(0,0,width,height);
+  }
   current = new Level(i);
 }
 void loadImageData(){
