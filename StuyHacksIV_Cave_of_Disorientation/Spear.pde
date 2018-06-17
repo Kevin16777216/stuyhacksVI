@@ -3,8 +3,13 @@ private class Spear{
   PVector target;
   PImage image;
   PVector shift;
-  public Spear(PVector Pos,PVector target){
-    image = images.get(3)[0];
+  int damage = 10;
+  public Spear(PVector Pos,PVector target,int ID){
+    if(ID == -1){
+      image = images.get(3)[0];
+    }else{
+      image = images.get(0)[ID];
+    }
     Box = new Hitbox(Pos,new PVector (30,30));
     this.target = target;
     shift = new PVector((target.x-Pos.x),(target.y-Pos.y));

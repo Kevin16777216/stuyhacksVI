@@ -1,10 +1,12 @@
 public class Player{
   Hitbox hitBox;
   PShape body;
+  int speed = 5;
   PImage texture;
   Bar healthBar;
-  int maxHealth = 100;
-  int Health = 100;
+  int maxHealth = 10000;
+  int deadFrames = 0;
+  int Health = 10000;
   ArrayList<Spear> Spears = new ArrayList<Spear>();
   public Player(PVector TR,PVector Dimensions){
     hitBox = new Hitbox(TR,Dimensions);
@@ -20,11 +22,25 @@ public class Player{
   public void update(){
     readInput();
     setupSprite();
-    shape(body);
+    image(texture,hitBox.TR.x,hitBox.TR.y,hitBox.Dimensions.x,hitBox.Dimensions.y);
+    //shape(body);
     updateHealth();
     ArrayList<Spear> Removed = new ArrayList<Spear>();
     for(Spear i: Spears){
       i.update();
+      ArrayList<Enemy> toBeRemoved = new ArrayList<Enemy>();
+      for(Enemy p: current.Enemies){
+        if(i.Box.isHit(p.EBox)){
+          p.getHit(i.damage);
+          if(p.health == 0){
+            toBeRemoved.add(p);
+          }
+        }
+      }
+      for(Enemy p: toBeRemoved){
+        p = null;
+        current.Enemies.remove(p);
+      }
       for (Tile j: current.Tiles){
           if(i.Box.isHit(j.hitBox) && j.isSolid || i.Box.TR.x < 0 || i.Box.TR.x > width || i.Box.TR.y < 0 || i.Box.TR.y > height){
             Removed.add(i);
@@ -38,31 +54,38 @@ public class Player{
     }
   }
   private void updateHealth(){
-    healthBar.pos.x = hitBox.TR.x +10;
+    healthBar.pos.x = hitBox.TR.x +5;
     healthBar.pos.y = hitBox.TR.y - 50;
-    healthBar.updateValue(34);
     healthBar.render();
+  }
+  public void getHit(int damage){
+    Health -= damage;
+    if(Health <0){
+      Health = 0;
+      deadFrames++;
+    }
+    healthBar.updateValue(Health);
   }
   public void launchSpear(){
     if (Spears.size() < 5){
-      Spears.add(new Spear(new PVector(hitBox.Center.x,hitBox.Center.y - 10),new PVector(mouseX,mouseY)));
+      Spears.add(new Spear(new PVector(hitBox.Center.x - 10,hitBox.Center.y - 10),new PVector(mouseX,mouseY),-1));
     }
   }
   private void readInput(){
    if (U && !D){
-     hitBox.Movement.y = -10;
+     hitBox.Movement.y = -speed;
    }else{
      if (D && !U){
-       hitBox.Movement.y = 10;
+       hitBox.Movement.y = speed;
      }else{
        hitBox.Movement.y = 0;
      }
    }
    if (L && !R){
-     hitBox.Movement.x = -10;
+     hitBox.Movement.x = -speed;
    }else{
      if (R && !L){
-       hitBox.Movement.x = 10;
+       hitBox.Movement.x = speed;
      }else{
        hitBox.Movement.x = 0; 
      }

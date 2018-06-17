@@ -15,6 +15,7 @@ public class Level{
       println(e);
       setupDefault();
     }
+    setupEnemies();
   }
   public void update(){
     if (Touch == 2){
@@ -24,6 +25,9 @@ public class Level{
       i.render();
     }
     for(TileE i : Teleporters){
+      i.update();
+    }
+    for(Enemy i:Enemies){
       i.update();
     }
     if (Touch == 1){
@@ -74,6 +78,19 @@ public class Level{
         i++;
     }
   }
+  private void setupEnemies(){
+    int amount = int(random(3)) + 1;
+    for (int i = 0; i < amount; i++){
+      Tile p = Tiles.get(int(random(Tiles.size())));
+      while(p.isSolid || p instanceof TileE ){
+        p = Tiles.get(int(random(Tiles.size())));
+      }
+      
+      Enemies.add(new Shooter(100,new PVector(p.TR.x,p.TR.y),0,5,9,0));
+      //p.spawnEnemy(int(random(5)));
+      
+    }
+  }
   private Enemy createEnemy(String[] data){
      switch (data[0]){
        case "S":
@@ -81,8 +98,8 @@ public class Level{
        case "R":
          break;
        default:
-         return new Enemy();
+         return new Enemy(100,new PVector(width/2,height/2),0);
      }
-     return new Enemy();
+     return new Enemy(100,new PVector(width/2,height/2),0);
   }
 }

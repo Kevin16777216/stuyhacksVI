@@ -27,6 +27,12 @@ private class Tile{
   private void getImage(){
     texture = images.get(1)[textureID];
   }
+  private void spawnEnemy(int type){
+    switch(type){
+      default:
+    
+    }
+  }
   private void setShape(){
     shape = createShape();
     shape.beginShape();

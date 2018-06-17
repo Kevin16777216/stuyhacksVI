@@ -1,7 +1,7 @@
 ArrayList<PImage[]> images = new ArrayList<PImage[]>();
 String[] Sections = {"Enemies","Tiles","UI","other"};
 Level starting;
-Level current;
+static Level current;
 float Tbuffer = (980 - (11 * constants.blockWidth)) / 2;
 float Sbuffer = (1440 - (17 * constants.blockWidth)) / 2;
 Hitbox top = new Hitbox(new PVector(0,0), new PVector(1440,Tbuffer));
@@ -43,23 +43,22 @@ void loadImageData(){
         folderImages[i] = loadImage(path);
       }
     }
-    println(folderImages.length);
     images.add(folderImages);
   }
 }
 public void keyPressed(){
    if(key == ' '){S = 0;}
-   if(keyCode == UP){U = true;}
-   if(keyCode == DOWN){D = true;}
-   if(keyCode == LEFT){L = true;}
-   if(keyCode == RIGHT){R = true;}
+   if(keyCode == UP|| key == 'w'){U = true;}
+   if(keyCode == DOWN|| key == 's'){D = true;}
+   if(keyCode == LEFT|| key == 'a'){L = true;}
+   if(keyCode == RIGHT|| key == 'd'){R = true;}
 }
 public void keyReleased(){
    if(key == ' '){S = 2;}
-   if(keyCode == UP){U = false;}
-   if(keyCode == DOWN){D = false;}
-   if(keyCode == LEFT){L = false;}
-   if(keyCode == RIGHT){R = false;}
+   if(keyCode == UP || key == 'w'){U = false;}
+   if(keyCode == DOWN || key == 's'){D = false;}
+   if(keyCode == LEFT|| key == 'a'){L = false;}
+   if(keyCode == RIGHT|| key == 'd'){R = false;}
 }
 void mouseClicked(){
   player.launchSpear();
@@ -67,3 +66,19 @@ void mouseClicked(){
 public interface constants{
   int blockWidth = 80;
 }
+ public Tile[] getNearestTile(PVector n){
+    ArrayList<Tile> nearest = new ArrayList<Tile>();
+    float minDistance = 999999;
+    for (Tile i : current.Tiles){
+      PVector temp = PVector.sub(i.TR,n);
+      if (temp.mag() <= minDistance){
+        if(temp.mag() == minDistance){
+          nearest.add(i);
+          minDistance = temp.mag();
+        }else{
+          nearest.clear();
+        }
+      }
+    }
+    return nearest.toArray(new Tile[nearest.size()]);
+  }
