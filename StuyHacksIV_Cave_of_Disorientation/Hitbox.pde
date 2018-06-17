@@ -28,6 +28,9 @@ private class Hitbox{
            }else{
              forceY = (TR.y + Dimensions.y) - other.TR.y ;
            }
+           /*Movement.x *= -0.7;
+           Movement.y *= -0.7;
+           applyMovement();*/
            if (abs(forceX) < abs(forceY)){
                Movement.x = forceX;
                applyMovement();

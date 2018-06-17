@@ -8,6 +8,7 @@ private class Spear{
     Box = new Hitbox(Pos,new PVector (30,30));
     this.target = target;
     shift = new PVector((target.x-Pos.x),(target.y-Pos.y));
+    shift.setMag(10);
     render();
   }
   private void update(){

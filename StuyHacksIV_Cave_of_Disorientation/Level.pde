@@ -1,10 +1,12 @@
 public class Level{
   int ID;
+  int frames = 0;
   ArrayList<Integer> Spawns = new ArrayList<Integer>();
   ArrayList<PVector> Entrances = new ArrayList<PVector>(); //list of coordinates corresponding to Spawns.
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<Tile> Tiles = new ArrayList<Tile>();
   ArrayList<TileE> Teleporters = new ArrayList<TileE>();
+  int Touch = 2;
   public Level(int ID){
     this.ID = ID;
     try{
@@ -15,12 +17,19 @@ public class Level{
     }
   }
   public void update(){
+    if (Touch == 2){
+      Touch = 1;
+    }
     for(Tile i : Tiles){
       i.render();
     }
     for(TileE i : Teleporters){
       i.update();
     }
+    if (Touch == 1){
+      Touch = 0;
+    }
+    frames++;
   }
   private void setupDefault(){
     int defHeight = 11;

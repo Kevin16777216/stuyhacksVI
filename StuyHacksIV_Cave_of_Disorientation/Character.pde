@@ -34,6 +34,7 @@ public class Player{
     }
     for (Spear i: Removed){
       Spears.remove(i);
+      i = null;
     }
   }
   private void updateHealth(){
@@ -73,6 +74,10 @@ public class Player{
        o = hitBox.isHit(i.hitBox);
      }
    }
+   o = hitBox.isHit(top);
+   o = hitBox.isHit(bottom);
+   o = hitBox.isHit(left);
+   o = hitBox.isHit(right);
   }
   private void loadTexture(){
     texture = loadImage("player.jpg");
