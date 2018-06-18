@@ -11,6 +11,7 @@ Hitbox right = new Hitbox(new PVector(1440 - Sbuffer,0),new PVector(Sbuffer,980)
 PVector playerDimensions = new PVector(constants.blockWidth*0.7,constants.blockWidth* 0.7);
 Player player;
 boolean U,D,L,R = false;
+boolean[] inventory = new boolean[10];
 int S = 1;
 void setup(){
   loadImageData();
@@ -30,7 +31,7 @@ void changeLevel(int i, PVector Spawn){
   player.hitBox.TR = Spawn;
   player.hitBox.Center.x = player.hitBox.TR.x + (player.hitBox.Dimensions.x /2);
   player.hitBox.Center.y = player.hitBox.TR.y + (player.hitBox.Dimensions.y /2);
-  if (player.deadFrames > 0){
+  if (player.deadFrames > 0){ 
       fill(255,0,0);
       rect(0,0,width,height);
   }
@@ -54,6 +55,12 @@ void loadImageData(){
   }
 }
 public void keyPressed(){
+   for(int i = 0; i < 10;i++){
+     if(key ==  Integer.toString(i).charAt(0)){
+       player.inv.selected = i;
+       inventory[i] = true;
+     }
+   }
    if(key == ' '){player.launchSpear();}
    if(keyCode == UP|| key == 'w'){U = true;}
    if(keyCode == DOWN|| key == 's'){D = true;}
@@ -61,6 +68,11 @@ public void keyPressed(){
    if(keyCode == RIGHT|| key == 'd'){R = true;}
 }
 public void keyReleased(){
+    for(int i = 0; i < 10;i++){
+     if(key ==  Integer.toString(i).charAt(0)){
+       inventory[i] = false;
+     }
+    }
    if(key == ' '){S = 2;}
    if(keyCode == UP || key == 'w'){U = false;}
    if(keyCode == DOWN || key == 's'){D = false;}

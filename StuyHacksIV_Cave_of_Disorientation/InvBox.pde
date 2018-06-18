@@ -17,7 +17,7 @@ private class InvBox{
     stroke(20,20,20);
     strokeWeight(5);
     rect(Pos.x,Pos.y,constants.blockWidth * 0.9,constants.blockWidth*0.9);
-    image(images.get(4)[ID],Pos.x + 5,Pos.y + 5,constants.blockWidth * 0.9,constants.blockWidth*0.9);
+    image(images.get(4)[ID],Pos.x + 3,Pos.y + 2,constants.blockWidth * 0.85,constants.blockWidth*0.85);
     fill(0);
     addText();
   }

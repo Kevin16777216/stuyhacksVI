@@ -1,7 +1,7 @@
 public class Level{
   int ID;
   int frames = 0;
-  int framekill = 300;
+  int framekill = 400;
   ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
   ArrayList<Tile> Tiles = new ArrayList<Tile>();
   ArrayList<TileE> Teleporters = new ArrayList<TileE>();
@@ -40,6 +40,9 @@ public class Level{
       rect(0,0,width,height);
       player.Health = 0;
     }
+    PImage crosshair = images.get(3)[2];
+    crosshair.resize(40,40);
+    image(crosshair,mouseX - 20,mouseY - 20);
     if (Touch == 1){
       Touch = 0;
     }

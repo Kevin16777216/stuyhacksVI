@@ -57,7 +57,7 @@ public class Player{
           p.getHit(i.damage);
           if(p.health == 0 && p.deadFrames < 1){
             int k = int(random(0,3));
-            int s = int(random(0,3));
+            int s = int(random(1,3));
             inv.addItem(k,s);
             toBeRemoved.add(p);
           }
